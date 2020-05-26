@@ -1,0 +1,8 @@
+comp_selftest
+=============
+
+This is a Linux kernel module to perform a self-test and benchmarks on in-kernel crypto compression algorithms.
+
+This repository just contains the original code of the module (created by Dan Streetman), buildable as a standalone out-of-tree module, along with very minor fixes. For more information, see https://lkml.org/lkml/2015/4/7/756
+
+The code is licensed under the GPLv2.
