@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  */
 
+#include <linux/version.h>
 #include <linux/module.h>
 #include <linux/kthread.h>
 #include <linux/debugfs.h>
@@ -55,8 +56,13 @@ struct test_range {
 };
 
 struct test_param {
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 4, 0)
+	bool running;
+	bool repeat;
+#else
 	u32 running;
 	u32 repeat;
+#endif
 	u32 kthreads;
 	u32 bps_window; /* in seconds */
 	struct test_range offset[3];
