@@ -1,0 +1,11 @@
+.comp_selftest.ko.cmd
+.comp_selftest.mod.cmd
+.comp_selftest.mod.o.cmd
+.comp_selftest.o.cmd
+Module.symvers
+modules.order
+comp_selftest.ko
+comp_selftest.mod
+comp_selftest.mod.c
+comp_selftest.mod.o
+comp_selftest.o
