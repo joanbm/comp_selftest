@@ -653,14 +653,13 @@ static const struct file_operations test_compressor_ops = {
 static ssize_t test_status_read(struct file *file, char __user *buf,
 				size_t len, loff_t *off)
 {
-	int tmplen = 120;
-	char tmp[tmplen];
+	char tmp[120];
 
 	if (!test_params.running) {
 		if (*off == 0) /* haven't printed anything yet, so print msg */
-			snprintf(tmp, tmplen, "Test not running\n");
+			snprintf(tmp, sizeof(tmp), "Test not running\n");
 		else if (*off == 1) /* printed status, just print \n */
-			snprintf(tmp, tmplen, "\n");
+			snprintf(tmp, sizeof(tmp), "\n");
 		else /* printed msg or \n, report end */
 			return 0;
 		*off = 2;
@@ -670,14 +669,15 @@ static ssize_t test_status_read(struct file *file, char __user *buf,
 	/* slow down reading */
 	schedule_timeout_interruptible(msecs_to_jiffies(250));
 
-	snprintf(tmp, tmplen, "Threads %d MBps: %lu/%lu peak %lu/%lu       \r",
+	snprintf(tmp, sizeof(tmp),
+		 "Threads %d MBps: %lu/%lu peak %lu/%lu       \r",
 		 test_params.kthreads,
 		 (unsigned long)(total_bps(0) / 1000000),
 		 (unsigned long)(total_bps(1) / 1000000),
 		 (unsigned long)(atomic64_read(&test_max_bps[0]) / 1000000),
 		 (unsigned long)(atomic64_read(&test_max_bps[1]) / 1000000));
-	tmp[tmplen - 2] = '\r';
-	tmp[tmplen - 1] = 0;
+	tmp[sizeof(tmp) - 2] = '\r';
+	tmp[sizeof(tmp) - 1] = 0;
 
 end:
 	len = min(len, strlen(tmp));
