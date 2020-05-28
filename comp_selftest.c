@@ -22,6 +22,7 @@
 #include <linux/crypto.h>
 #include <linux/rwsem.h>
 #include <linux/ratelimit.h>
+#include <linux/sched/task.h>
 
 #define MODULE_NAME "comp_selftest"
 MODULE_LICENSE("GPL");
